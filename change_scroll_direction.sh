@@ -1,10 +1,5 @@
 #!/bin/zsh
 
-
-
-
-
-
 change_scrolling_direction() {
  toggle_scroll_direction_applescript_strategy
 }
@@ -42,5 +37,5 @@ test_integration() {
 }
 
 # Used to call explicit methods from the terminal
-# Functionality: Calls everything after the ./xxx.sh <here> call
+# Functionality: Calls every function after the ./xxx.sh <here> call
 "$@"
