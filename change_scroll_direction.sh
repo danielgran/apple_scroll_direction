@@ -6,39 +6,39 @@
 
 
 change_scrolling_direction() {
- if (( $(is_natural_scrolling_active) == 1 )); then
-  deactivate_natural_scrolling_direction
- else
-  activate_natural_scrolling_direction
- fi
- 
- 
+ toggle_scroll_direction_applescript_strategy
 }
-
 
 is_natural_scrolling_active() {
  echo $(defaults read -g com.apple.swipescrolldirection)
 }
 
-deactivate_natural_scrolling_direction() {
-  defaults write -g com.apple.swipescrolldirection -bool FALSE
+ toggle_scroll_direction_applescript_strategy() {
+  osascript change_strategy.scpt what1 ever2
 }
 
-activate_natural_scrolling_direction() {
-  defaults write -g com.apple.swipescrolldirection -bool TRUE
-}
 
+## Integration Test
 
 test_integration() {
  test_current_state_before=$(defaults read -g com.apple.swipescrolldirection)
- 
  change_scrolling_direction
- 
  test_current_state_after=$(defaults read -g com.apple.swipescrolldirection)
  
  if (( test_current_state_before == test_current_state_after )) then
-  echo "Integration test failed"
+   echo " ❌ Test failed."
+   return 0
  fi
+  
+  change_scrolling_direction
+  test_current_state_after=$(defaults read -g com.apple.swipescrolldirection)
+  
+  if (( test_current_state_before != test_current_state_after )) then
+    echo " ❌ Test failed."
+    return 0
+  fi
+  
+  echo " ✅ Test passed."
 }
 
 # Used to call explicit methods from the terminal
