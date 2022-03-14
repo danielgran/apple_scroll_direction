@@ -1,4 +1,4 @@
-# Apple scroll direction
+# Apple change scroll direction programatically
 
 
 ## Description
